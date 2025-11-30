@@ -1,0 +1,59 @@
+# LiteAds Base Configuration
+
+app:
+  name: "LiteAds"
+  version: "0.1.0"
+  debug: false
+
+server:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 4
+  reload: false
+
+database:
+  host: "localhost"
+  port: 5432
+  name: "liteads"
+  user: "liteads"
+  password: ""
+  pool_size: 10
+  max_overflow: 20
+
+redis:
+  host: "localhost"
+  port: 6379
+  db: 0
+  password: ""
+  pool_size: 10
+
+# Ad serving configuration
+ad_serving:
+  default_num_ads: 1
+  max_num_ads: 10
+  timeout_ms: 50
+  enable_ml_prediction: true
+
+# Frequency control
+frequency:
+  default_daily_cap: 3
+  default_hourly_cap: 1
+  ttl_hours: 24
+
+# ML model configuration
+ml:
+  model_dir: "./models"
+  ctr_model: "deepfm_v1"
+  cvr_model: "deepfm_cvr_v1"
+  embedding_dim: 8
+  batch_size: 128
+
+# Logging
+logging:
+  level: "INFO"
+  format: "json"
+
+# Monitoring
+monitoring:
+  enabled: true
+  prometheus_port: 9090

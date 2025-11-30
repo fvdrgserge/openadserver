@@ -1,0 +1,26 @@
+# LiteAds Production Configuration
+
+app:
+  debug: false
+
+server:
+  workers: 4
+  reload: false
+
+database:
+  pool_size: 20
+  max_overflow: 40
+
+redis:
+  pool_size: 20
+
+ad_serving:
+  timeout_ms: 30
+  enable_ml_prediction: true
+
+logging:
+  level: "INFO"
+  format: "json"
+
+monitoring:
+  enabled: true

@@ -1,0 +1,277 @@
+# LiteAds Feature Configuration
+# 广告推荐系统特征配置文件
+# 采用工厂模式，按特征类型分类处理
+
+# ==============================================================================
+# 特征类型说明:
+# - id:         ID特征，使用 LabelEncoder 编码后 Embedding
+# - discrete:   离散特征，使用 LabelEncoder 编码
+# - continuous: 连续特征，使用 StandardScaler 标准化
+# - time:       时间特征，分解为 hour/day_of_week/is_weekend/is_peak
+# - sequence:   序列特征，使用 EmbeddingBag 处理变长序列
+# - cross:      交叉特征，多个特征组合后哈希
+# ==============================================================================
+
+feature_groups:
+
+  # ============================================================================
+  # 用户特征 (User Features)
+  # ============================================================================
+  user:
+    id_features:
+      - name: user_id
+        type: id
+        embedding_dim: 32
+        description: "用户唯一标识"
+
+    discrete_features:
+      - name: user_gender
+        type: discrete
+        description: "用户性别"
+
+      - name: user_age_bucket
+        type: discrete
+        description: "用户年龄段 (18-24, 25-34, 35-44, 45+)"
+
+      - name: user_device_os
+        type: discrete
+        description: "设备操作系统"
+
+      - name: user_network_type
+        type: discrete
+        description: "网络类型 (wifi/4g/5g)"
+
+    continuous_features:
+      - name: user_click_count_7d
+        type: continuous
+        transform: log1p
+        description: "用户7天点击次数"
+
+      - name: user_click_count_30d
+        type: continuous
+        transform: log1p
+        description: "用户30天点击次数"
+
+      - name: user_conversion_count_7d
+        type: continuous
+        transform: log1p
+        description: "用户7天转化次数"
+
+      - name: user_ctr_7d
+        type: continuous
+        description: "用户7天点击率"
+
+      - name: user_cvr_7d
+        type: continuous
+        description: "用户7天转化率"
+
+      - name: user_avg_session_duration
+        type: continuous
+        transform: log1p
+        description: "用户平均会话时长(秒)"
+
+    sequence_features:
+      - name: user_interest_tags
+        type: sequence
+        embedding_dim: 16
+        pooling: mean
+        max_length: 20
+        description: "用户兴趣标签列表"
+
+      - name: user_clicked_categories
+        type: sequence
+        embedding_dim: 16
+        pooling: mean
+        max_length: 10
+        description: "用户点击过的广告类目"
+
+  # ============================================================================
+  # 广告特征 (Ad Features)
+  # ============================================================================
+  ad:
+    id_features:
+      - name: campaign_id
+        type: id
+        embedding_dim: 32
+        description: "广告计划ID"
+
+      - name: creative_id
+        type: id
+        embedding_dim: 32
+        description: "创意ID"
+
+      - name: advertiser_id
+        type: id
+        embedding_dim: 16
+        description: "广告主ID"
+
+    discrete_features:
+      - name: ad_category
+        type: discrete
+        description: "广告类目"
+
+      - name: creative_type
+        type: discrete
+        description: "创意类型 (banner/native/video)"
+
+      - name: bid_type
+        type: discrete
+        description: "出价类型 (cpm/cpc/cpa)"
+
+      - name: landing_page_type
+        type: discrete
+        description: "落地页类型"
+
+    continuous_features:
+      - name: ad_bid
+        type: continuous
+        description: "广告出价"
+
+      - name: ad_ctr_7d
+        type: continuous
+        description: "广告7天点击率"
+
+      - name: ad_cvr_7d
+        type: continuous
+        description: "广告7天转化率"
+
+      - name: ad_impression_count_7d
+        type: continuous
+        transform: log1p
+        description: "广告7天曝光次数"
+
+      - name: ad_click_count_7d
+        type: continuous
+        transform: log1p
+        description: "广告7天点击次数"
+
+      - name: creative_ctr
+        type: continuous
+        description: "创意点击率"
+
+      - name: advertiser_quality_score
+        type: continuous
+        description: "广告主质量分"
+
+    sequence_features:
+      - name: ad_tags
+        type: sequence
+        embedding_dim: 16
+        pooling: mean
+        max_length: 10
+        description: "广告标签列表"
+
+  # ============================================================================
+  # 上下文特征 (Context Features)
+  # ============================================================================
+  context:
+    discrete_features:
+      - name: slot_id
+        type: discrete
+        description: "广告位ID"
+
+      - name: request_hour
+        type: discrete
+        description: "请求小时 (0-23)"
+
+      - name: request_day_of_week
+        type: discrete
+        description: "请求星期几 (0-6)"
+
+      - name: is_weekend
+        type: discrete
+        description: "是否周末"
+
+      - name: is_peak_hour
+        type: discrete
+        description: "是否高峰时段 (9-12, 19-22)"
+
+      - name: geo_country
+        type: discrete
+        description: "国家"
+
+      - name: geo_city
+        type: discrete
+        description: "城市"
+
+    continuous_features:
+      - name: slot_ctr
+        type: continuous
+        description: "广告位历史点击率"
+
+      - name: hour_ctr
+        type: continuous
+        description: "该小时历史点击率"
+
+    time_features:
+      - name: request_timestamp
+        type: time
+        extract:
+          - hour
+          - day_of_week
+          - is_weekend
+          - is_peak_hour
+        description: "请求时间戳"
+
+  # ============================================================================
+  # 交叉特征 (Cross Features)
+  # ============================================================================
+  cross:
+    - name: user_ad_cross
+      type: cross
+      fields: [user_id, campaign_id]
+      hash_buckets: 100000
+      embedding_dim: 16
+      description: "用户-广告交叉"
+
+    - name: user_category_cross
+      type: cross
+      fields: [user_id, ad_category]
+      hash_buckets: 10000
+      embedding_dim: 8
+      description: "用户-类目交叉"
+
+    - name: user_slot_cross
+      type: cross
+      fields: [user_id, slot_id]
+      hash_buckets: 10000
+      embedding_dim: 8
+      description: "用户-广告位交叉"
+
+    - name: ad_hour_cross
+      type: cross
+      fields: [campaign_id, request_hour]
+      hash_buckets: 10000
+      embedding_dim: 8
+      description: "广告-时段交叉"
+
+# ==============================================================================
+# 模型配置
+# ==============================================================================
+model:
+  # Embedding维度
+  default_embedding_dim: 16
+
+  # FM参数
+  fm_k: 8  # FM因子维度
+
+  # DNN参数
+  dnn_hidden_units: [256, 128, 64]
+  dnn_dropout: 0.2
+  dnn_activation: relu
+
+  # 正则化
+  l2_reg_embedding: 0.0001
+  l2_reg_dnn: 0.0001
+
+# ==============================================================================
+# 特征统计信息 (训练时动态更新)
+# ==============================================================================
+feature_stats:
+  # 会在fit阶段自动填充
+  num_users: null
+  num_campaigns: null
+  num_creatives: null
+  num_advertisers: null
+  num_categories: null
+  vocab_sizes: {}

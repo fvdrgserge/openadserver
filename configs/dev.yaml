@@ -1,0 +1,31 @@
+# LiteAds Development Configuration
+
+app:
+  debug: true
+
+server:
+  workers: 1
+  reload: true
+
+database:
+  host: "localhost"
+  port: 5432
+  name: "liteads"
+  user: "liteads"
+  password: "liteads_password"
+
+redis:
+  host: "localhost"
+  port: 6379
+  db: 1
+
+ad_serving:
+  enable_ml_prediction: true
+  model_path: "models/lr_ctr.pt"
+
+logging:
+  level: "DEBUG"
+  format: "console"
+
+monitoring:
+  enabled: false
