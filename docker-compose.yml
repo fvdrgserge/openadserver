@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # Ad Server (can be scaled horizontally)
   ad-server:

@@ -12,10 +12,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
+# Copy source code for building wheel
 COPY pyproject.toml ./
-RUN pip install --no-cache-dir build && \
-    pip wheel --no-cache-dir --wheel-dir=/app/wheels -e .
+COPY liteads ./liteads
+
+# Build wheel
+RUN pip install --no-cache-dir build hatchling && \
+    pip wheel --no-cache-dir --wheel-dir=/app/wheels .
 
 # Runtime stage
 FROM python:3.11-slim as runtime
